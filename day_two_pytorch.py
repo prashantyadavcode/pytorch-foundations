@@ -89,3 +89,5 @@ z = z.to(device)
 # print device of z
 print(z.device)
 
+
+# END
