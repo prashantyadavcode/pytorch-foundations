@@ -35,6 +35,9 @@ train_loader = torch.utils.data.DataLoader(
 
 # Build CNN Model
 
+# Model - Image → Feature Extraction → Compression → Classification
+# More concretely - (1,28,28) → Conv → ReLU → Pool → Conv → ReLU → Pool → Flatten → Linear → Output(10)
+
 import torch.nn as nn
 
 model = nn.Sequential(
@@ -50,6 +53,13 @@ model = nn.Sequential(
     nn.Linear(32*5*5, 10)
 )
 
+# Each layer is learning ->
+# Conv1 - edges, lines
+# Conv2 - shapes, patterns
+# Linear - classification
+
+# Mental Model - Pixels → Edges → Shapes → Patterns → Digit
+
 # Shape Flow (IMPORTANT)
 
 # Layer -> Output Shape
@@ -60,6 +70,16 @@ model = nn.Sequential(
     # Pool -> (32, 5, 5)
     # Flatten -> (800, )
     # Output -> (10, )
+
+# Why increasing Channels? 1 -> 16 -> 32
+# more channels = more features learned
+
+# Why skrinking size? 28 -> 26 -> 13 -> 11 -> 5
+# reduce computation + focus on key information
+
+# This model is a feature extractor (Conv layers) + classifier (Linear layer)
+
+
 
 # Training Loop (same as before)
 
@@ -95,3 +115,5 @@ with torch.no_grad():
         correct += (predicted == labels).sum().item()
 
 print('Accuracy: ', 100 * correct / total)
+
+
