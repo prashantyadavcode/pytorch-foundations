@@ -50,3 +50,7 @@ for epoch in range(200):
 # Activation -> adds complexity
 # Stack layers -> learn patterns
 
+
+# Neural Network -> a function
+# and model(x) is that function
+
